@@ -1,4 +1,4 @@
-package sorting
+package main
 
 /*
  * Sort an array of integers, in place, using the insertion sort algorithm.

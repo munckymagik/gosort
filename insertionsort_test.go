@@ -1,9 +1,8 @@
-package sorting_test
+package main
 
 import (
     "testing"
     "sort" // The real 'sort' package from the standard library
-    "goalgorithms/sorting"
 )
 
 /*
@@ -12,7 +11,7 @@ import (
  */
 func TestInsertionSortShouldHandleEmptyInput(t *testing.T) {
     var a []int = make([]int, 0)
-    sorting.InsertionSort(a)
+    InsertionSort(a)
 }
 
 /*
@@ -21,7 +20,7 @@ func TestInsertionSortShouldHandleEmptyInput(t *testing.T) {
  */
 func TestInsertionSortShouldHandleOneElement(t *testing.T) {
     var a []int = make([]int, 1)
-    sorting.InsertionSort(a)
+    InsertionSort(a)
 }
 
 /*
@@ -31,7 +30,7 @@ func TestInsertionSortShouldHandleOneElement(t *testing.T) {
 func TestInsertionSortShouldHandleSorted(t *testing.T) {
     a := []int{ 1, 2, 3, 4, 5, 6, 7, 8, 9 }
     
-    sorting.InsertionSort(a)
+    InsertionSort(a)
     
     if !sort.IntsAreSorted(a) {
         t.Error("Corrupted already sorted array: ", a)
@@ -45,7 +44,7 @@ func TestInsertionSortShouldHandleSorted(t *testing.T) {
 func TestInsertionSortShouldHandleReverseSorted(t *testing.T) {
     a := []int{ 9, 8, 7, 6, 5, 4, 3, 2, 1 }
     
-    sorting.InsertionSort(a)
+    InsertionSort(a)
     
     if !sort.IntsAreSorted(a) {
         t.Error("Failed to sort reverse sorted array: ", a)
@@ -59,7 +58,7 @@ func TestInsertionSortShouldHandleReverseSorted(t *testing.T) {
 func TestInsertionSortShouldSortRandomized(t *testing.T) {
     a := []int{ 3, 2, 6, 5, 4, 8, 7, 1, 9 }
     
-    sorting.InsertionSort(a)
+    InsertionSort(a)
     
     if !sort.IntsAreSorted(a) {
         t.Error("Failed to sort reverse sorted array: ", a)
