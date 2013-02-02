@@ -50,3 +50,7 @@ func TestBubbleSort(t *testing.T) {
 func TestInsertionSort(t *testing.T) {
     runTests(InsertionSort, t)
 }
+
+func TestMergeSort(t *testing.T) {
+    runTests(MergeSort, t)
+}
