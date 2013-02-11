@@ -54,3 +54,7 @@ func TestInsertionSort(t *testing.T) {
 func TestMergeSort(t *testing.T) {
     runTests(MergeSort, t)
 }
+
+func TestQuickSort(t *testing.T) {
+    runTests(QuickSort, t)
+}
