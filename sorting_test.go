@@ -58,3 +58,21 @@ func TestMergeSort(t *testing.T) {
 func TestQuickSort(t *testing.T) {
     runTests(QuickSort, t)
 }
+
+func TestQuickSortPivotChoosers(t *testing.T) {
+    pivotChoosers := []ChoosePivot{
+        ChooseFirstElementPivot,
+        ChooseLastElementPivot,
+        ChooseMiddleElementPivot,
+        ChooseRandomElementPivot,
+    }
+    
+    for _, chooser := range pivotChoosers {
+        curriedQuicksort := func(a []int) {
+            QuickSortWithPivotChoice(a, chooser);
+        }
+    
+        runTests(curriedQuicksort, t) 
+    }
+}
+
