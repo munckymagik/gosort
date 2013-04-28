@@ -66,13 +66,12 @@ func TestQuickSortPivotChoosers(t *testing.T) {
         ChooseMiddleElementPivot,
         ChooseRandomElementPivot,
     }
-    
+
     for _, chooser := range pivotChoosers {
         curriedQuicksort := func(a []int) {
-            QuickSortWithPivotChoice(a, chooser);
+            QuickSortWithPivotChoice(a, chooser)
         }
-    
-        runTests(curriedQuicksort, t) 
+
+        runTests(curriedQuicksort, t)
     }
 }
-

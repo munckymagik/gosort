@@ -25,7 +25,7 @@ type ChoosePivot func(a []int) int
  * This implementation uses random pivot selection.
  */
 func QuickSort(a []int) {
-    QuickSortWithPivotChoice(a, ChooseRandomElementPivot);
+    QuickSortWithPivotChoice(a, ChooseRandomElementPivot)
 }
 
 /*
@@ -52,12 +52,12 @@ func ChooseFirstElementPivot(a []int) int {
 
 // A pivot selection strategy: choose the last element
 func ChooseLastElementPivot(a []int) int {
-    return len(a)-1
+    return len(a) - 1
 }
 
 // A pivot selection strategy: choose the middle element
 func ChooseMiddleElementPivot(a []int) int {
-    return (len(a)-1) / 2
+    return (len(a) - 1) / 2
 }
 
 // A pivot selection strategy: choose a random element
@@ -73,8 +73,8 @@ func ChooseRandomElementPivot(a []int) int {
  */
 func ChooseMedianElementPivot(a []int) int {
     first := 0
-    middle := (len(a)-1) / 2
-    last := (len(a)-1)
+    middle := (len(a) - 1) / 2
+    last := (len(a) - 1)
 
     median := last
 
@@ -105,6 +105,5 @@ func partition(a []int, pivot int) int {
     // Put the pivot element into position
     a[0], a[i-1] = a[i-1], a[0]
 
-    return i-1
+    return i - 1
 }
-
