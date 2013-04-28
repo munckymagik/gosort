@@ -31,7 +31,7 @@ func QuickSort(a []int) {
  QuickSortWithPivotChoice sorts an array of integers, in place, using the
  QuickSort algorithm, but also allows calling code to select how pivots
  are chosen. Pass one of the Choose<strategy>Pivot functions as the
- second argument to specify a pivot selection strategy.
+ second argument to specify A QuickSort pivot selection strategy.
  */
 func QuickSortWithPivotChoice(a []int, choosePivot ChoosePivot) {
     if len(a) <= 1 {
@@ -44,28 +44,33 @@ func QuickSortWithPivotChoice(a []int, choosePivot ChoosePivot) {
     QuickSortWithPivotChoice(a[pivot+1:], choosePivot)
 }
 
-// A pivot selection strategy: choose the first element
+// A QuickSort pivot selection strategy: choose the first element. Use with
+// QuickSortWithPivotChoice.
 func ChooseFirstElementPivot(a []int) int {
     return 0
 }
 
-// A pivot selection strategy: choose the last element
+// A QuickSort pivot selection strategy: choose the last element. Use with
+// QuickSortWithPivotChoice.
 func ChooseLastElementPivot(a []int) int {
     return len(a) - 1
 }
 
-// A pivot selection strategy: choose the middle element
+// A QuickSort pivot selection strategy: choose the middle element. Use with
+// QuickSortWithPivotChoice.
 func ChooseMiddleElementPivot(a []int) int {
     return (len(a) - 1) / 2
 }
 
-// A pivot selection strategy: choose a random element
+// A QuickSort pivot selection strategy: choose a random element. Use with
+// QuickSortWithPivotChoice.
 func ChooseRandomElementPivot(a []int) int {
     return rand.Intn(len(a))
 }
 
 /*
- A pivot selection strategy: try to choose a median-ish element.
+ A QuickSort pivot selection strategy: try to choose a median-ish element.
+ Use with QuickSortWithPivotChoice.
  
  First selects the first, middle and last elements, then chooses
  the median of these three values and returns its index.
