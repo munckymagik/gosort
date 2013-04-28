@@ -1,4 +1,4 @@
-package main
+package gosort
 
 func MergeSort(a []int) {
     mergeSort(a, 0, len(a)-1)

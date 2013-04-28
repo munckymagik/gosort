@@ -1,4 +1,4 @@
-package main
+package gosort
 
 /*
  * Sort an array of integers, in place, using the insertion sort algorithm.

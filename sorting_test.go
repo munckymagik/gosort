@@ -1,4 +1,4 @@
-package main
+package gosort
 
 import (
     "sort" // The real 'sort' package from the standard library
