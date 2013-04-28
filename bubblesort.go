@@ -1,7 +1,7 @@
 package gosort
 
 /*
- * Sort an array of integers, in place, using the bubble sort algorithm.
+ Sort an array of integers, in place, using the bubble sort algorithm.
  */
 func BubbleSort(a []int) {
     // Iterate from 0 up to the second to last element

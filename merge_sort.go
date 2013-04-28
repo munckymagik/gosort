@@ -1,5 +1,8 @@
 package gosort
 
+/*
+ Sort an array of integers, using the Merge Sort algorithm.
+ */
 func MergeSort(a []int) {
     mergeSort(a, 0, len(a)-1)
 }
