@@ -2,7 +2,7 @@ package gosort
 
 /*
  Sort an array of integers, in place, using the insertion sort algorithm.
- */
+*/
 func InsertionSort(a []int) {
     // Iterate up from the second element to the last
     for j := 1; j < len(a); j++ {

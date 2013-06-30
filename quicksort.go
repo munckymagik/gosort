@@ -15,14 +15,14 @@ func init() {
  ChoosePivot defines the signature for a function that given a slice returns
  an index that can be used a pivot in the partitioning stage of QuickSort
  algorithm.
- */
+*/
 type ChoosePivot func(a []int) int
 
 /*
  QuickSort sorts an array of integers, in place, using the QuickSort
  algorithm.
  This implementation uses random pivot selection.
- */
+*/
 func QuickSort(a []int) {
     QuickSortWithPivotChoice(a, ChooseRandomElementPivot)
 }
@@ -32,7 +32,7 @@ func QuickSort(a []int) {
  QuickSort algorithm, but also allows calling code to select how pivots
  are chosen. Pass one of the Choose<strategy>Pivot functions as the
  second argument to specify A QuickSort pivot selection strategy.
- */
+*/
 func QuickSortWithPivotChoice(a []int, choosePivot ChoosePivot) {
     if len(a) <= 1 {
         return
@@ -71,10 +71,10 @@ func ChooseRandomElementPivot(a []int) int {
 /*
  A QuickSort pivot selection strategy: try to choose a median-ish element.
  Use with QuickSortWithPivotChoice.
- 
+
  First selects the first, middle and last elements, then chooses
  the median of these three values and returns its index.
- */
+*/
 func ChooseMedianElementPivot(a []int) int {
     first := 0
     middle := (len(a) - 1) / 2
