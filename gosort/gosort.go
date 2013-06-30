@@ -6,9 +6,9 @@ import (
     "os"
     "strings"
     "text/template"
-    
+
     // Imports the library defined in the containing package
-    gosort ".."
+    "github.com/munckymagik/gosort"
 )
 
 type algorithm struct {
@@ -18,7 +18,7 @@ type algorithm struct {
 
     // The algorithm to apply to the input
     Algorithm gosort.IntegerSorter
-    
+
     // The usage description
     Description string
 }
@@ -63,22 +63,22 @@ func main() {
     if len(os.Args) != 2 {
         usage()
     }
-    
+
     requestedAlgorithm := os.Args[1]
     requestedAlgorithm = strings.ToLower(requestedAlgorithm)
-    
+
     if strings.HasSuffix(requestedAlgorithm, "help") {
         usage()
     }
-    
+
     if theAlgorithm, ok := algorithmsMap[requestedAlgorithm]; ok {
         fmt.Println("You chose", theAlgorithm.Name)
-        
+
         // TODO implement the reading stdin, sorting and outputing
     } else {
         fmt.Println("ERROR Unrecognised algorithm/command:", requestedAlgorithm)
         fmt.Println("Run gosort help to see the list of supported choices")
         os.Exit(1)
     }
-    
+
 }
