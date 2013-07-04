@@ -29,7 +29,7 @@ var algorithmsList = []sortAlgorithm{
     {"mergesort", gosort.MergeSort, "Sort using the Merge Sort algorithm"},
     {"insertionsort", gosort.InsertionSort, "Sort using the Insetion Sort algorithm"},
     {"bubblesort", gosort.BubbleSort, "Sort using the Bubble Sort algorithm"},
-    {"heapsort", gosort.HeapSort, "Sort using the Heap Sort algorithm"},
+    {"minheapsort", gosort.MinHeapSort, "Sort using the MinHeap Sort algorithm (reverse sorts)"},
 }
 
 var algorithmsMap = make(map[string]sortAlgorithm)

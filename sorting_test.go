@@ -43,6 +43,16 @@ func runTests(alg func([]int), t *testing.T) {
     }
 }
 
+func reverse(buffer []int) {
+    start := 0
+    end := len(buffer) - 1
+    for start < end {
+        buffer[start], buffer[end] = buffer[end], buffer[start]
+        start++
+        end--
+    }
+}
+
 func TestBubbleSort(t *testing.T) {
     runTests(BubbleSort, t)
 }
@@ -76,8 +86,15 @@ func TestQuickSortPivotChoosers(t *testing.T) {
     }
 }
 
-func TestHeapSort(t *testing.T) {
-    runTests(HeapSort, t)
+func TestMinHeapSort(t *testing.T) {
+    // MinHeap naturally reverse sorts its input. In order to pass these
+    // tests we simply need to reverse the input after sorting.
+    forwardSort := func(a []int) {
+        MinHeapSort(a)
+        reverse(a)
+    }
+
+    runTests(forwardSort, t)
 }
 
 func TestHeapSortInvariant(t *testing.T) {

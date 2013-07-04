@@ -13,7 +13,7 @@ func NewMinHeap(storage []int) *MinHeap {
     return newHeap
 }
 
-func HeapSort(input []int) {
+func MinHeapSort(input []int) {
     heap := NewMinHeap(input)
     heap.inplaceSort()
 }
@@ -68,22 +68,10 @@ func (self *MinHeap) checkInvariant() bool {
 }
 
 func (self *MinHeap) inplaceSort() {
-    heapSize := self.heapSize
-
     for i := self.heapSize - 1; i > 0; i-- {
         self.heap[0], self.heap[i] = self.heap[i], self.heap[0]
         self.heapSize--
         self.minHeapify(0)
-    }
-
-    // The array comes out reverse sorted, so we need to reverse it
-    // TODO is there a way to avoid this?
-    start := 0
-    end := heapSize - 1
-    for start < end {
-        self.heap[start], self.heap[end] = self.heap[end], self.heap[start]
-        start++
-        end--
     }
 }
 
