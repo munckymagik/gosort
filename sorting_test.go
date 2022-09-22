@@ -1,6 +1,7 @@
 package gosort
 
 import (
+	"reflect"
 	"sort" // The real 'sort' package from the standard library
 	"testing"
 )
@@ -109,5 +110,14 @@ func TestHeapSortInvariant(t *testing.T) {
 		if !heap.checkInvariant() {
 			t.Error("Fails invariant")
 		}
+	}
+}
+
+func TestSortStrings(t *testing.T) {
+	a := []string{"bb", "0", "ba", "7", "aa"}
+	expected := []string{"0", "7", "aa", "ba", "bb"}
+	QuickSort(a)
+	if !reflect.DeepEqual(a, expected) {
+		t.Errorf("Expected %v to equal %v", a, expected)
 	}
 }
