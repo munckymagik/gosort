@@ -57,7 +57,9 @@ func init() {
 
 func usage() {
 	t := template.Must(template.New("usage").Parse(usageTemplate))
-	t.Execute(os.Stderr, algorithmsList)
+	if err := t.Execute(os.Stderr, algorithmsList); err != nil {
+		panic(err)
+	}
 	os.Exit(2)
 }
 
