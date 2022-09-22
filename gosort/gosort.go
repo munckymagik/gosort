@@ -25,11 +25,11 @@ type sortAlgorithm struct {
 }
 
 var algorithmsList = []sortAlgorithm{
-	{"quicksort", gosort.QuickSort, "Sort using the Quick Sort algorithm"},
-	{"mergesort", gosort.MergeSort, "Sort using the Merge Sort algorithm"},
-	{"insertionsort", gosort.InsertionSort, "Sort using the Insetion Sort algorithm"},
-	{"bubblesort", gosort.BubbleSort, "Sort using the Bubble Sort algorithm"},
-	{"minheapsort", gosort.MinHeapSort, "Sort using the MinHeap Sort algorithm (reverse sorts)"},
+	{"quicksort", gosort.QuickSort[int], "Sort using the Quick Sort algorithm"},
+	{"mergesort", gosort.MergeSort[int], "Sort using the Merge Sort algorithm"},
+	{"insertionsort", gosort.InsertionSort[int], "Sort using the Insetion Sort algorithm"},
+	{"bubblesort", gosort.BubbleSort[int], "Sort using the Bubble Sort algorithm"},
+	{"minheapsort", gosort.MinHeapSort[int], "Sort using the MinHeap Sort algorithm (reverse sorts)"},
 }
 
 var algorithmsMap = make(map[string]sortAlgorithm)
