@@ -18,7 +18,7 @@ type sortAlgorithm struct {
 	Name string
 
 	// The algorithm to apply to the input
-	Run gosort.IntegerSorter
+	Run gosort.Sorter[int]
 
 	// The usage description
 	Description string
