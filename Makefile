@@ -33,6 +33,10 @@ test: ## Run the tests
 open_coverage_report:  ## Open the last code coverage report in your default browser
 	go tool cover -html=.coverage.out
 
+.PHONY: fmt
+fmt:
+	go fmt ./...
+
 .PHONY: help
 help: ## Show the list of available makefile targets
 	@grep -hE '^[/a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-26s\033[0m %s\n", $$1, $$2}'
