@@ -54,28 +54,28 @@ func reverse(buffer []int) {
 }
 
 func TestBubbleSort(t *testing.T) {
-	runTests(BubbleSort, t)
+	runTests(BubbleSort[int], t)
 }
 
 func TestInsertionSort(t *testing.T) {
-	runTests(InsertionSort, t)
+	runTests(InsertionSort[int], t)
 }
 
 func TestMergeSort(t *testing.T) {
-	runTests(MergeSort, t)
+	runTests(MergeSort[int], t)
 }
 
 func TestQuickSort(t *testing.T) {
-	runTests(QuickSort, t)
+	runTests(QuickSort[int], t)
 }
 
 func TestQuickSortPivotChoosers(t *testing.T) {
-	pivotChoosers := []ChoosePivot{
-		ChooseFirstElementPivot,
-		ChooseLastElementPivot,
-		ChooseMiddleElementPivot,
-		ChooseRandomElementPivot,
-		ChooseMedianElementPivot,
+	pivotChoosers := []ChoosePivot[int]{
+		ChooseFirstElementPivot[int],
+		ChooseLastElementPivot[int],
+		ChooseMiddleElementPivot[int],
+		ChooseRandomElementPivot[int],
+		ChooseMedianElementPivot[int],
 	}
 
 	for _, chooser := range pivotChoosers {

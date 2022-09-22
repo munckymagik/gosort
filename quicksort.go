@@ -3,6 +3,8 @@ package gosort
 import (
 	"math/rand"
 	"time"
+
+	"golang.org/x/exp/constraints"
 )
 
 // The private initialisation function for this source file
@@ -16,15 +18,15 @@ func init() {
  an index that can be used a pivot in the partitioning stage of QuickSort
  algorithm.
 */
-type ChoosePivot func(a []int) int
+type ChoosePivot[T constraints.Ordered] func(a []T) int
 
 /*
  QuickSort sorts an array of integers, in place, using the QuickSort
  algorithm.
  This implementation uses random pivot selection.
 */
-func QuickSort(a []int) {
-	QuickSortWithPivotChoice(a, ChooseRandomElementPivot)
+func QuickSort[T constraints.Ordered](a []T) {
+	QuickSortWithPivotChoice(a, ChooseRandomElementPivot[T])
 }
 
 /*
@@ -33,7 +35,7 @@ func QuickSort(a []int) {
  are chosen. Pass one of the Choose<strategy>Pivot functions as the
  second argument to specify A QuickSort pivot selection strategy.
 */
-func QuickSortWithPivotChoice(a []int, choosePivot ChoosePivot) {
+func QuickSortWithPivotChoice[T constraints.Ordered](a []T, choosePivot ChoosePivot[T]) {
 	if len(a) <= 1 {
 		return
 	}
@@ -46,25 +48,25 @@ func QuickSortWithPivotChoice(a []int, choosePivot ChoosePivot) {
 
 // A QuickSort pivot selection strategy: choose the first element. Use with
 // QuickSortWithPivotChoice.
-func ChooseFirstElementPivot(a []int) int {
+func ChooseFirstElementPivot[T constraints.Ordered](a []T) int {
 	return 0
 }
 
 // A QuickSort pivot selection strategy: choose the last element. Use with
 // QuickSortWithPivotChoice.
-func ChooseLastElementPivot(a []int) int {
+func ChooseLastElementPivot[T constraints.Ordered](a []T) int {
 	return len(a) - 1
 }
 
 // A QuickSort pivot selection strategy: choose the middle element. Use with
 // QuickSortWithPivotChoice.
-func ChooseMiddleElementPivot(a []int) int {
+func ChooseMiddleElementPivot[T constraints.Ordered](a []T) int {
 	return (len(a) - 1) / 2
 }
 
 // A QuickSort pivot selection strategy: choose a random element. Use with
 // QuickSortWithPivotChoice.
-func ChooseRandomElementPivot(a []int) int {
+func ChooseRandomElementPivot[T constraints.Ordered](a []T) int {
 	return rand.Intn(len(a))
 }
 
@@ -75,7 +77,7 @@ func ChooseRandomElementPivot(a []int) int {
  First selects the first, middle and last elements, then chooses
  the median of these three values and returns its index.
 */
-func ChooseMedianElementPivot(a []int) int {
+func ChooseMedianElementPivot[T constraints.Integer | constraints.Float](a []T) int {
 	first := 0
 	middle := (len(a) - 1) / 2
 	last := (len(a) - 1)
@@ -91,7 +93,7 @@ func ChooseMedianElementPivot(a []int) int {
 	return median
 }
 
-func partition(a []int, pivot int) int {
+func partition[T constraints.Ordered](a []T, pivot int) int {
 	// If the pivot isn't the first element, swap it so it is
 	if pivot > 0 {
 		a[0], a[pivot] = a[pivot], a[0]

@@ -1,9 +1,11 @@
 package gosort
 
+import "golang.org/x/exp/constraints"
+
 /*
  Sort an array of integers, in place, using the insertion sort algorithm.
 */
-func InsertionSort(a []int) {
+func InsertionSort[T constraints.Ordered](a []T) {
 	// Iterate up from the second element to the last
 	for j := 1; j < len(a); j++ {
 		key := a[j]
