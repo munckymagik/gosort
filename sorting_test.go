@@ -74,7 +74,7 @@ func TestQuickSortPivotChoosers(t *testing.T) {
 		ChooseFirstElementPivot[int],
 		ChooseLastElementPivot[int],
 		ChooseMiddleElementPivot[int],
-		ChooseRandomElementPivot[int],
+		NewChooseRandomElementPivot[int](1),
 		ChooseMedianElementPivot[int],
 	}
 

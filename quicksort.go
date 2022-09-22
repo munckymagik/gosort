@@ -7,12 +7,6 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// The private initialisation function for this source file
-func init() {
-	// Seed the RNG ready for use for randomly selecting pivots
-	rand.Seed(time.Now().UTC().UnixNano())
-}
-
 /*
  ChoosePivot defines the signature for a function that given a slice returns
  an index that can be used a pivot in the partitioning stage of QuickSort
@@ -26,7 +20,7 @@ type ChoosePivot[T constraints.Ordered] func(a []T) int
  This implementation uses random pivot selection.
 */
 func QuickSort[T constraints.Ordered](a []T) {
-	QuickSortWithPivotChoice(a, ChooseRandomElementPivot[T])
+	QuickSortWithPivotChoice(a, NewChooseRandomElementPivot[T](time.Now().UTC().UnixNano()))
 }
 
 /*
@@ -66,8 +60,19 @@ func ChooseMiddleElementPivot[T constraints.Ordered](a []T) int {
 
 // A QuickSort pivot selection strategy: choose a random element. Use with
 // QuickSortWithPivotChoice.
+// Deprecated: this no longer sets the global seed so it will become deterministic.
+// use NewChooseRandomElementPivot instead.
 func ChooseRandomElementPivot[T constraints.Ordered](a []T) int {
 	return rand.Intn(len(a))
+}
+
+// NewChooseRandomElementPivot returns a QuickSort pivot selection strategy: choose
+// a random element. Use with QuickSortWithPivotChoice.
+func NewChooseRandomElementPivot[T constraints.Ordered](seed int64) func([]T) int {
+	r := rand.New(rand.NewSource(seed))
+	return func(a []T) int {
+		return r.Intn(len(a))
+	}
 }
 
 /*
