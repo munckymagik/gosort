@@ -1,35 +1,35 @@
 package main
 
 import (
-    // Standard imports
-    "fmt"
-    "io"
-    "os"
-    "strings"
-    "text/template"
+	// Standard imports
+	"fmt"
+	"io"
+	"os"
+	"strings"
+	"text/template"
 
-    // Imports the library defined in the containing package
-    "github.com/munckymagik/gosort"
+	// Imports the library defined in the containing package
+	"github.com/munckymagik/gosort"
 )
 
 type sortAlgorithm struct {
-    // The name that the user can specify on the command line
-    // to select this algorithm
-    Name string
+	// The name that the user can specify on the command line
+	// to select this algorithm
+	Name string
 
-    // The algorithm to apply to the input
-    Run gosort.IntegerSorter
+	// The algorithm to apply to the input
+	Run gosort.IntegerSorter
 
-    // The usage description
-    Description string
+	// The usage description
+	Description string
 }
 
 var algorithmsList = []sortAlgorithm{
-    {"quicksort", gosort.QuickSort, "Sort using the Quick Sort algorithm"},
-    {"mergesort", gosort.MergeSort, "Sort using the Merge Sort algorithm"},
-    {"insertionsort", gosort.InsertionSort, "Sort using the Insetion Sort algorithm"},
-    {"bubblesort", gosort.BubbleSort, "Sort using the Bubble Sort algorithm"},
-    {"minheapsort", gosort.MinHeapSort, "Sort using the MinHeap Sort algorithm (reverse sorts)"},
+	{"quicksort", gosort.QuickSort, "Sort using the Quick Sort algorithm"},
+	{"mergesort", gosort.MergeSort, "Sort using the Merge Sort algorithm"},
+	{"insertionsort", gosort.InsertionSort, "Sort using the Insetion Sort algorithm"},
+	{"bubblesort", gosort.BubbleSort, "Sort using the Bubble Sort algorithm"},
+	{"minheapsort", gosort.MinHeapSort, "Sort using the MinHeap Sort algorithm (reverse sorts)"},
 }
 
 var algorithmsMap = make(map[string]sortAlgorithm)
@@ -50,56 +50,58 @@ Available algorithms:
 `
 
 func init() {
-    for _, choice := range algorithmsList {
-        algorithmsMap[choice.Name] = choice
-    }
+	for _, choice := range algorithmsList {
+		algorithmsMap[choice.Name] = choice
+	}
 }
 
-func usage(){
-    t := template.Must(template.New("usage").Parse(usageTemplate))
-    t.Execute(os.Stderr, algorithmsList)
-    os.Exit(2)
+func usage() {
+	t := template.Must(template.New("usage").Parse(usageTemplate))
+	if err := t.Execute(os.Stderr, algorithmsList); err != nil {
+		panic(err)
+	}
+	os.Exit(2)
 }
 
 func main() {
-    if len(os.Args) != 2 {
-        usage()
-    }
+	if len(os.Args) != 2 {
+		usage()
+	}
 
-    requestedAlgorithm := os.Args[1]
-    requestedAlgorithm = strings.ToLower(requestedAlgorithm)
+	requestedAlgorithm := os.Args[1]
+	requestedAlgorithm = strings.ToLower(requestedAlgorithm)
 
-    if strings.HasSuffix(requestedAlgorithm, "help") {
-        usage()
-    }
+	if strings.HasSuffix(requestedAlgorithm, "help") {
+		usage()
+	}
 
-    if theAlgorithm, ok := algorithmsMap[requestedAlgorithm]; ok {
-        fmt.Fprintln(os.Stderr, "Chosen algorithm", theAlgorithm.Name)
+	if theAlgorithm, ok := algorithmsMap[requestedAlgorithm]; ok {
+		fmt.Fprintln(os.Stderr, "Chosen algorithm", theAlgorithm.Name)
 
-        buffer := make([]int, 0)
-        var itemBuffer int
+		buffer := make([]int, 0)
+		var itemBuffer int
 
-        itemsRead, err := fmt.Scanln(&itemBuffer)
-        for itemsRead == 1 && err == nil {
-            buffer = append(buffer, itemBuffer)
-            itemsRead, err = fmt.Scanln(&itemBuffer)
-        }
+		itemsRead, err := fmt.Scanln(&itemBuffer)
+		for itemsRead == 1 && err == nil {
+			buffer = append(buffer, itemBuffer)
+			itemsRead, err = fmt.Scanln(&itemBuffer)
+		}
 
-        if err != io.EOF {
-            fmt.Println("ERROR reading input:", err)
-            os.Exit(1)
-        }
+		if err != io.EOF {
+			fmt.Println("ERROR reading input:", err)
+			os.Exit(1)
+		}
 
-        theAlgorithm.Run(buffer)
+		theAlgorithm.Run(buffer)
 
-        for _, element := range buffer {
-            fmt.Println(element)
-        }
+		for _, element := range buffer {
+			fmt.Println(element)
+		}
 
-    } else {
-        fmt.Println("ERROR Unrecognised algorithm/command:", requestedAlgorithm)
-        fmt.Println("Run gosort help to see the list of supported choices")
-        os.Exit(1)
-    }
+	} else {
+		fmt.Println("ERROR Unrecognised algorithm/command:", requestedAlgorithm)
+		fmt.Println("Run gosort help to see the list of supported choices")
+		os.Exit(1)
+	}
 
 }
