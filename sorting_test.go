@@ -75,6 +75,7 @@ func TestQuickSortPivotChoosers(t *testing.T) {
 		ChooseLastElementPivot,
 		ChooseMiddleElementPivot,
 		ChooseRandomElementPivot,
+		ChooseMedianElementPivot,
 	}
 
 	for _, chooser := range pivotChoosers {
