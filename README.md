@@ -1,21 +1,13 @@
-Sorting Algorithms in Go
-========================
+# Sorting Algorithms in Go
 
 This project contains the [Go][1] source code for some common sorting algorithms and
 a simple command line front-end to try them out.
 
-For more information about Go see:
+## Limitations
 
-* [The Go programming language][1]
+The code in this library was written as a learning exercise. Please note the following limitations:
 
-Limitations
------------
-
-The code in this library is designed as a **reference** and for **learning**, so any potential users
-should note the following limitations:
-
-* It only supports sorting of integer arrays. This is intended to maximise
-  simplicity and readability by avoiding having to deal with generic type issues.
+* It only supports sorting of arrays of ordered types. I.e. numbers and strings.
 * No attempt has been made to optimise the performance of the implementations beyond the natural
   efficiency of the algorithms themselves.
 
