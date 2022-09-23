@@ -5,7 +5,7 @@ import (
 )
 
 func TestQuickSortPivotChoosers(t *testing.T) {
-	pivotChoosers := []ChoosePivot[int]{
+	pivotChoosers := []PivotChooser[int]{
 		ChooseFirstElementPivot[int],
 		ChooseLastElementPivot[int],
 		ChooseMiddleElementPivot[int],

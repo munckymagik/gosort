@@ -7,10 +7,10 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// ChoosePivot defines the signature for a function that given a slice returns
+// PivotChooser defines the signature for a function that given a slice returns
 // an index that can be used a pivot in the partitioning stage of QuickSort
 // algorithm.
-type ChoosePivot[T constraints.Ordered] func(a []T) int
+type PivotChooser[T constraints.Ordered] func(a []T) int
 
 // QuickSort sorts an array of ordered elements, in place, using the QuickSort
 // algorithm.
@@ -23,7 +23,7 @@ func QuickSort[T constraints.Ordered](a []T) {
 // the QuickSort algorithm, but also allows calling code to select how pivots
 // are chosen. Pass one of the Choose<strategy>Pivot functions as the
 // second argument to specify A QuickSort pivot selection strategy.
-func QuickSortWithPivotChoice[T constraints.Ordered](a []T, choosePivot ChoosePivot[T]) {
+func QuickSortWithPivotChoice[T constraints.Ordered](a []T, choosePivot PivotChooser[T]) {
 	if len(a) <= 1 {
 		return
 	}
