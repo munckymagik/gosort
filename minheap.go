@@ -15,6 +15,7 @@ func NewMinHeap[T constraints.Ordered](storage []T) *MinHeap[T] {
 	return newHeap
 }
 
+// MinHeapSort sorts an array of ordered elements, in place, using the Merge Sort algorithm.
 func MinHeapSort[T constraints.Ordered](input []T) {
 	heap := NewMinHeap(input)
 	heap.inplaceSort()

@@ -1,8 +1,7 @@
-/*
-Package gosort contains a set of sorting algorithm implementations.
-
-The source code been created for educational use, consequently only sorting of
-integer arrays is supported and no effort has been made to optimise beyond the
-efficiency of the algorithms themselves.
-*/
+// Package gosort implements a set of common sorting algorithms.
+//
+// The code in this library was written as a learning exercise. Please note the
+// following limitations: it only supports sorting of arrays of ordered types,
+// i.e. numbers and strings; no attempt has been made to optimise the performance
+// of the implementations beyond the natural efficiency of the algorithms themselves.
 package gosort

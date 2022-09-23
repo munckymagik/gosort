@@ -2,9 +2,7 @@ package gosort
 
 import "golang.org/x/exp/constraints"
 
-/*
- Sort an array of integers, using the Merge Sort algorithm.
-*/
+// MergeSort sorts an array of ordered elements, in place, using the Merge Sort algorithm.
 func MergeSort[T constraints.Ordered](a []T) {
 	mergeSort(a, 0, len(a)-1)
 }
