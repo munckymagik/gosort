@@ -4,7 +4,27 @@ import (
 	"reflect"
 	"sort" // The real 'sort' package from the standard library
 	"testing"
+
+	"golang.org/x/exp/constraints"
 )
+
+func TestSortingAlgos(t *testing.T) {
+	algos := []struct {
+		sortInts    Sorter[int]
+		sortStrings Sorter[string]
+	}{
+		{BubbleSort[int], BubbleSort[string]},
+		{InsertionSort[int], InsertionSort[string]},
+		{MergeSort[int], MergeSort[string]},
+		{QuickSort[int], QuickSort[string]},
+		{reverseMinHeapSort[int], reverseMinHeapSort[string]},
+	}
+
+	for _, algo := range algos {
+		testSorting(algo.sortInts, t)
+		testGeneric(algo.sortStrings, t)
+	}
+}
 
 var fixtures = map[string][]int{
 	"Should Handle Nil":            nil,
@@ -16,7 +36,7 @@ var fixtures = map[string][]int{
 	"Should Sort Duplicates":       {6, 6, 4, 3, 8, 8, 3, 0, 3, 8},
 }
 
-func runTests(alg func([]int), t *testing.T) {
+func testSorting(alg func([]int), t *testing.T) {
 	for desc, fixture := range fixtures {
 		// clone the fixture to prevent accidental modification
 		var cloned_fixture []int = make([]int, len(fixture))
@@ -44,80 +64,28 @@ func runTests(alg func([]int), t *testing.T) {
 	}
 }
 
-func reverse(buffer []int) {
+func testGeneric(sort Sorter[string], t *testing.T) {
+	a := []string{"bb", "0", "ba", "7", "aa"}
+	expected := []string{"0", "7", "aa", "ba", "bb"}
+	sort(a)
+	if !reflect.DeepEqual(a, expected) {
+		t.Errorf("Expected %v to equal %v", a, expected)
+	}
+}
+
+func reverseMinHeapSort[T constraints.Ordered](a []T) {
+	// MinHeap naturally reverse sorts its input. In order to pass these
+	// tests we simply need to reverse the input after sorting.
+	MinHeapSort(a)
+	reverse(a)
+}
+
+func reverse[T constraints.Ordered](buffer []T) {
 	start := 0
 	end := len(buffer) - 1
 	for start < end {
 		buffer[start], buffer[end] = buffer[end], buffer[start]
 		start++
 		end--
-	}
-}
-
-func TestBubbleSort(t *testing.T) {
-	runTests(BubbleSort[int], t)
-}
-
-func TestInsertionSort(t *testing.T) {
-	runTests(InsertionSort[int], t)
-}
-
-func TestMergeSort(t *testing.T) {
-	runTests(MergeSort[int], t)
-}
-
-func TestQuickSort(t *testing.T) {
-	runTests(QuickSort[int], t)
-}
-
-func TestQuickSortPivotChoosers(t *testing.T) {
-	pivotChoosers := []ChoosePivot[int]{
-		ChooseFirstElementPivot[int],
-		ChooseLastElementPivot[int],
-		ChooseMiddleElementPivot[int],
-		NewChooseRandomElementPivot[int](1),
-		ChooseMedianElementPivot[int],
-	}
-
-	for _, chooser := range pivotChoosers {
-		curriedQuicksort := func(a []int) {
-			QuickSortWithPivotChoice(a, chooser)
-		}
-
-		runTests(curriedQuicksort, t)
-	}
-}
-
-func TestMinHeapSort(t *testing.T) {
-	// MinHeap naturally reverse sorts its input. In order to pass these
-	// tests we simply need to reverse the input after sorting.
-	forwardSort := func(a []int) {
-		MinHeapSort(a)
-		reverse(a)
-	}
-
-	runTests(forwardSort, t)
-}
-
-func TestHeapSortInvariant(t *testing.T) {
-	for _, fixture := range fixtures {
-		// clone the fixture to prevent accidental modification
-		var cloned_fixture []int = make([]int, len(fixture))
-		copy(cloned_fixture, fixture)
-
-		heap := NewMinHeap(cloned_fixture)
-
-		if !heap.checkInvariant() {
-			t.Error("Fails invariant")
-		}
-	}
-}
-
-func TestSortStrings(t *testing.T) {
-	a := []string{"bb", "0", "ba", "7", "aa"}
-	expected := []string{"0", "7", "aa", "ba", "bb"}
-	QuickSort(a)
-	if !reflect.DeepEqual(a, expected) {
-		t.Errorf("Expected %v to equal %v", a, expected)
 	}
 }
