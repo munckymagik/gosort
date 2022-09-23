@@ -21,18 +21,6 @@ func MinHeapSort[T constraints.Ordered](input []T) {
 	heap.inplaceSort()
 }
 
-func (self *MinHeap[T]) Insert(newItem T) {
-	panic("not implemented")
-}
-
-func (self *MinHeap[T]) Min() T {
-	return self.heap[0]
-}
-
-func (self *MinHeap[T]) ExtractMin() T {
-	panic("not implemented")
-}
-
 func (self *MinHeap[T]) buildMinHeap() {
 	self.heapSize = len(self.heap)
 	for i := self.heapSize / 2; i >= 0; i-- {

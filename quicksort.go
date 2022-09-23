@@ -52,14 +52,6 @@ func ChooseMiddleElementPivot[T constraints.Ordered](a []T) int {
 	return (len(a) - 1) / 2
 }
 
-// ChooseRandomElementPivot is a QuickSort pivot selection strategy: choose a
-// random element. Use with QuickSortWithPivotChoice.
-// Deprecated: this no longer sets the global seed so it will become deterministic.
-// use NewChooseRandomElementPivot instead.
-func ChooseRandomElementPivot[T constraints.Ordered](a []T) int {
-	return rand.Intn(len(a))
-}
-
 // NewChooseRandomElementPivot returns a QuickSort pivot selection strategy:
 // choose a random element. Use with QuickSortWithPivotChoice.
 func NewChooseRandomElementPivot[T constraints.Ordered](seed int64) func([]T) int {
