@@ -5,12 +5,12 @@ import (
 )
 
 func TestQuickSortPivotChoosers(t *testing.T) {
-	pivotChoosers := []PivotChooser[int]{
-		ChooseFirstElementPivot[int],
-		ChooseLastElementPivot[int],
-		ChooseMiddleElementPivot[int],
-		NewChooseRandomElementPivot[int](1),
-		ChooseMedianElementPivot[int],
+	pivotChoosers := []PivotChooser{
+		ChooseFirstElementPivot,
+		ChooseLastElementPivot,
+		ChooseMiddleElementPivot,
+		NewChooseRandomElementPivot(1),
+		ChooseMedianElementPivot,
 	}
 
 	for _, chooser := range pivotChoosers {

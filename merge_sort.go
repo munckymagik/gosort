@@ -1,13 +1,11 @@
 package gosort
 
-import "golang.org/x/exp/constraints"
-
 // MergeSort sorts an array of ordered elements, in place, using the Merge Sort algorithm.
-func MergeSort[T constraints.Ordered](a []T) {
+func MergeSort(a []int) {
 	mergeSort(a, 0, len(a)-1)
 }
 
-func mergeSort[T constraints.Ordered](a []T, start, end int) {
+func mergeSort(a []int, start, end int) {
 	if start < end {
 		middle := (start + end) / 2
 
@@ -18,8 +16,8 @@ func mergeSort[T constraints.Ordered](a []T, start, end int) {
 	}
 }
 
-func merge[T constraints.Ordered](a []T, start, middle, end int) {
-	buffer := make([]T, end-start+1)
+func merge(a []int, start, middle, end int) {
+	buffer := make([]int, end-start+1)
 	copy(buffer, a[start:end+1])
 
 	index := start

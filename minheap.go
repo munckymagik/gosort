@@ -1,14 +1,12 @@
 package gosort
 
-import "golang.org/x/exp/constraints"
-
-type MinHeap[T constraints.Ordered] struct {
-	heap     []T
+type MinHeap struct {
+	heap     []int
 	heapSize int
 }
 
-func NewMinHeap[T constraints.Ordered](storage []T) *MinHeap[T] {
-	newHeap := new(MinHeap[T])
+func NewMinHeap(storage []int) *MinHeap {
+	newHeap := new(MinHeap)
 	newHeap.heap = storage
 	newHeap.buildMinHeap()
 
@@ -16,19 +14,19 @@ func NewMinHeap[T constraints.Ordered](storage []T) *MinHeap[T] {
 }
 
 // MinHeapSort sorts an array of ordered elements, in place, using the Merge Sort algorithm.
-func MinHeapSort[T constraints.Ordered](input []T) {
+func MinHeapSort(input []int) {
 	heap := NewMinHeap(input)
 	heap.inplaceSort()
 }
 
-func (self *MinHeap[T]) buildMinHeap() {
+func (self *MinHeap) buildMinHeap() {
 	self.heapSize = len(self.heap)
 	for i := self.heapSize / 2; i >= 0; i-- {
 		self.minHeapify(i)
 	}
 }
 
-func (self *MinHeap[T]) minHeapify(i int) {
+func (self *MinHeap) minHeapify(i int) {
 	l := left(i)
 	r := right(i)
 	smallest := i
@@ -45,7 +43,7 @@ func (self *MinHeap[T]) minHeapify(i int) {
 	}
 }
 
-func (self *MinHeap[T]) checkInvariant() bool {
+func (self *MinHeap) checkInvariant() bool {
 	for i := 1; i < self.heapSize; i++ {
 
 		// The current node should be greater than or equal to the parent
@@ -59,7 +57,7 @@ func (self *MinHeap[T]) checkInvariant() bool {
 	return true
 }
 
-func (self *MinHeap[T]) inplaceSort() {
+func (self *MinHeap) inplaceSort() {
 	for i := self.heapSize - 1; i > 0; i-- {
 		self.heap[0], self.heap[i] = self.heap[i], self.heap[0]
 		self.heapSize--

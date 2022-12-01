@@ -1,28 +1,21 @@
 package gosort
 
 import (
-	"reflect"
 	"sort" // The real 'sort' package from the standard library
 	"testing"
-
-	"golang.org/x/exp/constraints"
 )
 
 func TestSortingAlgos(t *testing.T) {
-	algos := []struct {
-		sortInts    Sorter[int]
-		sortStrings Sorter[string]
-	}{
-		{BubbleSort[int], BubbleSort[string]},
-		{InsertionSort[int], InsertionSort[string]},
-		{MergeSort[int], MergeSort[string]},
-		{QuickSort[int], QuickSort[string]},
-		{reverseMinHeapSort[int], reverseMinHeapSort[string]},
+	algos := []Sorter{
+		BubbleSort,
+		InsertionSort,
+		MergeSort,
+		QuickSort,
+		reverseMinHeapSort,
 	}
 
 	for _, algo := range algos {
-		testSorting(algo.sortInts, t)
-		testGeneric(algo.sortStrings, t)
+		testSorting(algo, t)
 	}
 }
 
@@ -62,23 +55,23 @@ func testSorting(alg func([]int), t *testing.T) {
 	}
 }
 
-func testGeneric(sort Sorter[string], t *testing.T) {
-	a := []string{"bb", "0", "ba", "7", "aa"}
-	expected := []string{"0", "7", "aa", "ba", "bb"}
-	sort(a)
-	if !reflect.DeepEqual(a, expected) {
-		t.Errorf("Expected %v to equal %v", a, expected)
-	}
-}
+// func testGeneric(sort Sorter[string], t *testing.T) {
+// 	a := []string{"bb", "0", "ba", "7", "aa"}
+// 	expected := []string{"0", "7", "aa", "ba", "bb"}
+// 	sort(a)
+// 	if !reflect.DeepEqual(a, expected) {
+// 		t.Errorf("Expected %v to equal %v", a, expected)
+// 	}
+// }
 
-func reverseMinHeapSort[T constraints.Ordered](a []T) {
+func reverseMinHeapSort(a []int) {
 	// MinHeap naturally reverse sorts its input. In order to pass these
 	// tests we simply need to reverse the input after sorting.
 	MinHeapSort(a)
 	reverse(a)
 }
 
-func reverse[T constraints.Ordered](buffer []T) {
+func reverse(buffer []int) {
 	start := 0
 	end := len(buffer) - 1
 	for start < end {
