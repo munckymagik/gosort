@@ -7,7 +7,7 @@ import (
 
 func TestSortingAlgos(t *testing.T) {
 	algos := []Sorter{
-		BubbleSort,
+		BubbleSort[int],
 		InsertionSort,
 		MergeSort,
 		QuickSort,
@@ -54,15 +54,6 @@ func testSorting(alg func([]int), t *testing.T) {
 		}()
 	}
 }
-
-// func testGeneric(sort Sorter[string], t *testing.T) {
-// 	a := []string{"bb", "0", "ba", "7", "aa"}
-// 	expected := []string{"0", "7", "aa", "ba", "bb"}
-// 	sort(a)
-// 	if !reflect.DeepEqual(a, expected) {
-// 		t.Errorf("Expected %v to equal %v", a, expected)
-// 	}
-// }
 
 func reverseMinHeapSort(a []int) {
 	// MinHeap naturally reverse sorts its input. In order to pass these

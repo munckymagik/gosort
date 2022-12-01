@@ -1,7 +1,9 @@
 package gosort
 
+import "golang.org/x/exp/constraints"
+
 // BubbleSort sorts an array of ordered elements, in place, using the bubble sort algorithm.
-func BubbleSort(a []int) {
+func BubbleSort[T constraints.Ordered](a []T) {
 	// Iterate from 0 up to the second to last element
 	for i := 0; i < len(a)-1; i++ {
 		// Iterate down from the last element to element i+1
