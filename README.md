@@ -1,14 +1,10 @@
-# Sorting Algorithms in Go
+# Generics Workshop Using a Library of Sorting Algorithms in Go
 
-This project contains the [Go][1] source code for some common sorting algorithms and
+This project contains the Go source code for some common sorting algorithms and
 a simple command line front-end to try them out.
 
-## Limitations
+However, the implementations only support slices of integers as inputs.
 
-The code in this library was written as a learning exercise. Please note the following limitations:
-
-* It only supports sorting of arrays of ordered types. I.e. numbers and strings.
-* No attempt has been made to optimise the performance of the implementations beyond the natural
-  efficiency of the algorithms themselves.
-
-[1]: http://golang.org/
+Follow the steps in [generics_workshop_test.go](./generics_workshop_test.go)
+to apply generics to all the sorting algorithms so they can sort strings and
+integers and ultimately all slices containing ordinal elements.
