@@ -169,7 +169,7 @@ func TestReverseMinHeapSortInts(t *testing.T) {
 // func TestReverseMinHeapSortStrings(t *testing.T) {
 // 	// Given
 // 	input := []string{"3", "1", "2"}
-// 	expected := []string{"1", "2", "3"}
+// 	expected := []string{"3", "2", "1"}
 
 // 	// When
 // 	gosort.MinHeapSort(input)
