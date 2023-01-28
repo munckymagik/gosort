@@ -2,6 +2,7 @@ package gosort
 
 import (
 	"testing"
+	"testing/quick"
 )
 
 func TestQuickSortPivotChoosers(t *testing.T) {
@@ -14,11 +15,12 @@ func TestQuickSortPivotChoosers(t *testing.T) {
 	}
 
 	for _, chooser := range pivotChoosers {
-		curriedQuicksort := func(a []int) {
-			QuickSortWithPivotChoice(a, chooser)
+		itSorts := func(v []int) bool {
+			cpy := Clone(v)
+			QuickSortWithPivotChoice(cpy, chooser)
+			return IsSorted(cpy)
 		}
-
-		testSorting(curriedQuicksort, t)
+		assertNoError(t, quick.Check(itSorts, nil))
 	}
 }
 

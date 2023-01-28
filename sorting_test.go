@@ -1,6 +1,7 @@
 package gosort
 
 import (
+	"fmt"
 	"testing"
 	"testing/quick"
 
@@ -20,24 +21,20 @@ func TestSortingAlgos(t *testing.T) {
 	}
 
 	for _, algo := range algos {
-		testSorting(algo.sortInts, t)
-		propertyTest(algo.sortInts, t)
-		propertyTest(algo.sortStrings, t)
-	}
-}
-
-func propertyTest[T constraints.Ordered](sorter Sorter[T], t *testing.T) {
-	alwaysSorts := func(input []T) bool {
-		cpy := Clone(input)
-		sorter(cpy)
-		return IsSorted(cpy)
-	}
-
-	cfg := quick.Config{
-		MaxCount: 1000,
-	}
-	if err := quick.Check(alwaysSorts, &cfg); err != nil {
-		t.Error(err)
+		t.Run("Test basic properties", func(t *testing.T) {
+			for desc, fixture := range fixtures() {
+				t.Run(fmt.Sprint(desc), func(t *testing.T) {
+					algo.sortInts(fixture)
+					assertTrue(t, IsSorted(fixture))
+				})
+			}
+		})
+		t.Run("Property test int sorter", func(t *testing.T) {
+			propertyTest(algo.sortInts, t)
+		})
+		t.Run("Property test string sorter", func(t *testing.T) {
+			propertyTest(algo.sortStrings, t)
+		})
 	}
 }
 
@@ -53,28 +50,14 @@ func fixtures() map[string][]int {
 	}
 }
 
-func testSorting(alg func([]int), t *testing.T) {
-	for desc, fixture := range fixtures() {
-		// Execute in a separate function in order to handle errors
-		func() {
-			// Handle errors
-			defer func() {
-				if err := recover(); err != nil {
-					t.Errorf("Error occured in '%s'. Err: %s, in: %+v, out: %+v",
-						err, desc, fixture, fixture)
-				}
-			}()
-
-			// Now execute the test
-			alg(fixture)
-
-			// Check that the operation was successful
-			if !IsSorted(fixture) {
-				t.Errorf("Test '%s' failed. In: %v, out: %v",
-					desc, fixture, fixture)
-			}
-		}()
+func propertyTest[T constraints.Ordered](sorter Sorter[T], t *testing.T) {
+	alwaysSorts := func(input []T) bool {
+		cpy := Clone(input)
+		sorter(cpy)
+		return IsSorted(cpy)
 	}
+
+	assertNoError(t, quick.Check(alwaysSorts, &quick.Config{MaxCount: 1000}))
 }
 
 func reverseMinHeapSort[T constraints.Ordered](a []T) {
