@@ -28,9 +28,9 @@ func TestSortingAlgos(t *testing.T) {
 
 func propertyTest[T constraints.Ordered](sorter Sorter[T], t *testing.T) {
 	alwaysSorts := func(input []T) bool {
-		cpy := clone(input)
+		cpy := Clone(input)
 		sorter(cpy)
-		return isSorted(cpy)
+		return IsSorted(cpy)
 	}
 
 	cfg := quick.Config{
@@ -69,7 +69,7 @@ func testSorting(alg func([]int), t *testing.T) {
 			alg(fixture)
 
 			// Check that the operation was successful
-			if !isSorted(fixture) {
+			if !IsSorted(fixture) {
 				t.Errorf("Test '%s' failed. In: %v, out: %v",
 					desc, fixture, fixture)
 			}
@@ -81,5 +81,5 @@ func reverseMinHeapSort[T constraints.Ordered](a []T) {
 	// MinHeap naturally reverse sorts its input. In order to pass these
 	// tests we simply need to reverse the input after sorting.
 	MinHeapSort(a)
-	reverse(a)
+	Reverse(a)
 }

@@ -41,7 +41,7 @@ func assertIsNilSlice[T any](t *testing.T, got []T) {
 func assertSlicesEqual[T comparable](t *testing.T, got, expected []T) {
 	t.Helper()
 
-	if slicesAreEqual(got, expected) {
+	if SlicesAreEqual(got, expected) {
 		return
 	}
 
@@ -51,7 +51,7 @@ func assertSlicesEqual[T comparable](t *testing.T, got, expected []T) {
 func assertSlicesNotEqual[T comparable](t *testing.T, got, expected []T) {
 	t.Helper()
 
-	if !slicesAreEqual(got, expected) {
+	if !SlicesAreEqual(got, expected) {
 		return
 	}
 
