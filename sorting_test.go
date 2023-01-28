@@ -1,7 +1,6 @@
 package gosort
 
 import (
-	"reflect"
 	"testing"
 	"testing/quick"
 
@@ -23,7 +22,6 @@ func TestSortingAlgos(t *testing.T) {
 	for _, algo := range algos {
 		testSorting(algo.sortInts, t)
 		propertyTest(algo.sortInts, t)
-		testGeneric(algo.sortStrings, t)
 		propertyTest(algo.sortStrings, t)
 	}
 }
@@ -76,15 +74,6 @@ func testSorting(alg func([]int), t *testing.T) {
 					desc, fixture, fixture)
 			}
 		}()
-	}
-}
-
-func testGeneric(sort Sorter[string], t *testing.T) {
-	a := []string{"bb", "0", "ba", "7", "aa"}
-	expected := []string{"0", "7", "aa", "ba", "bb"}
-	sort(a)
-	if !reflect.DeepEqual(a, expected) {
-		t.Errorf("Expected %v to equal %v", a, expected)
 	}
 }
 
