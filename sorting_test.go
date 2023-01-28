@@ -2,8 +2,8 @@ package gosort
 
 import (
 	"reflect"
-	"sort" // The real 'sort' package from the standard library
 	"testing"
+	"testing/quick"
 
 	"golang.org/x/exp/constraints"
 )
@@ -22,7 +22,24 @@ func TestSortingAlgos(t *testing.T) {
 
 	for _, algo := range algos {
 		testSorting(algo.sortInts, t)
+		propertyTest(algo.sortInts, t)
 		testGeneric(algo.sortStrings, t)
+		propertyTest(algo.sortStrings, t)
+	}
+}
+
+func propertyTest[T constraints.Ordered](sorter Sorter[T], t *testing.T) {
+	alwaysSorts := func(input []T) bool {
+		cpy := clone(input)
+		sorter(cpy)
+		return isSorted(cpy)
+	}
+
+	cfg := quick.Config{
+		MaxCount: 1000,
+	}
+	if err := quick.Check(alwaysSorts, &cfg); err != nil {
+		t.Error(err)
 	}
 }
 
@@ -54,7 +71,7 @@ func testSorting(alg func([]int), t *testing.T) {
 			alg(fixture)
 
 			// Check that the operation was successful
-			if !sort.IntsAreSorted(fixture) {
+			if !isSorted(fixture) {
 				t.Errorf("Test '%s' failed. In: %v, out: %v",
 					desc, fixture, fixture)
 			}
@@ -86,4 +103,21 @@ func reverse[T constraints.Ordered](buffer []T) {
 		start++
 		end--
 	}
+}
+
+func isSorted[T constraints.Ordered](v []T) bool {
+	n := len(v)
+	for i := n - 1; i > 0; i-- {
+		if v[i] < v[i-1] {
+			return false
+		}
+	}
+
+	return true
+}
+
+func clone[T any](v []T) []T {
+	cpy := make([]T, len(v))
+	copy(cpy, v)
+	return cpy
 }
