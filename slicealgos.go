@@ -8,13 +8,31 @@ func CloneSlice[T any](v []T) []T {
 	return cpy
 }
 
+func SlicesAreReversed[T comparable](a, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	i := 0
+	j := len(a) - 1
+	for i <= j {
+		if a[i] != b[j] {
+			return false
+		}
+		i++
+		j--
+	}
+
+	return true
+}
+
 func Reverse[T constraints.Ordered](buffer []T) {
-	start := 0
-	end := len(buffer) - 1
-	for start < end {
-		buffer[start], buffer[end] = buffer[end], buffer[start]
-		start++
-		end--
+	i := 0
+	j := len(buffer) - 1
+	for i < j {
+		buffer[i], buffer[j] = buffer[j], buffer[i]
+		i++
+		j--
 	}
 }
 

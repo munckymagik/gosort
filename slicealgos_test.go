@@ -39,24 +39,37 @@ func TestClone(t *testing.T) {
 	})
 }
 
+func TestSlicesAreReversed(t *testing.T) {
+	assertTrue(t, SlicesAreReversed[int](nil, nil))
+	assertTrue(t, SlicesAreReversed([]int{}, []int{}))
+	assertTrue(t, SlicesAreReversed([]int{1}, []int{1}))
+	assertTrue(t, SlicesAreReversed([]int{1, 2}, []int{2, 1}))
+	assertTrue(t, SlicesAreReversed([]int{1, 2, 3}, []int{3, 2, 1}))
+	assertTrue(t, !SlicesAreReversed([]int{1, 2}, []int{1, 2}))
+	assertTrue(t, !SlicesAreReversed([]int{1, 2, 3}, []int{1, 2, 3}))
+	assertTrue(t, !SlicesAreReversed([]int{1, 2, 3}, []int{3, 0, 1}))
+	assertTrue(t, !SlicesAreReversed([]int{1}, []int{1, 2}))
+	assertTrue(t, !SlicesAreReversed([]int{1}, []int{}))
+}
+
 func TestReverse(t *testing.T) {
 	t.Run("when the input is nil it does not panic", func(t *testing.T) {
 		Reverse[float32](nil)
 	})
 
 	t.Run("is symmetric", func(t *testing.T) {
-		isSymmetric := func(v []int) bool {
-			copy := CloneSlice(v)
+		isSymmetric := func(input []int) bool {
+			copy := CloneSlice(input)
 
-			Reverse(v)
+			Reverse(copy)
 
-			if len(v) > 1 && SlicesAreEqual(v, copy) {
+			if !SlicesAreReversed(copy, input) {
 				return false
 			}
 
-			Reverse(v)
+			Reverse(copy)
 
-			return SlicesAreEqual(v, copy)
+			return SlicesAreEqual(input, copy)
 		}
 		assertNoError(t, quick.Check(isSymmetric, &quick.Config{MaxCount: 1000}))
 	})
