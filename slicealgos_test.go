@@ -25,13 +25,13 @@ func TestSlicesAreEqual(t *testing.T) {
 
 func TestClone(t *testing.T) {
 	t.Run("when the input is nil it returns a nil slice", func(t *testing.T) {
-		cpy := Clone[int](nil)
+		cpy := CloneSlice[int](nil)
 		assertIsNilSlice(t, cpy)
 	})
 	t.Run("it clones the underlying array", func(t *testing.T) {
 		a := []int{1, 2, 3}
 
-		result := Clone(a)
+		result := CloneSlice(a)
 
 		assertSlicesEqual(t, a, result)
 		result[0] = 0
@@ -46,7 +46,7 @@ func TestReverse(t *testing.T) {
 
 	t.Run("is symmetric", func(t *testing.T) {
 		isSymmetric := func(v []int) bool {
-			copy := Clone(v)
+			copy := CloneSlice(v)
 
 			Reverse(v)
 

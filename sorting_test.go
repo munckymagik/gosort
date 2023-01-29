@@ -52,7 +52,7 @@ func fixtures() map[string][]int {
 
 func propertyTest[T constraints.Ordered](sorter Sorter[T], t *testing.T) {
 	alwaysSorts := func(input []T) bool {
-		cpy := Clone(input)
+		cpy := CloneSlice(input)
 		sorter(cpy)
 		return IsSorted(cpy)
 	}

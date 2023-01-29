@@ -16,7 +16,7 @@ func TestQuickSortPivotChoosers(t *testing.T) {
 
 	for _, chooser := range pivotChoosers {
 		itSorts := func(v []int) bool {
-			cpy := Clone(v)
+			cpy := CloneSlice(v)
 			QuickSortWithPivotChoice(cpy, chooser)
 			return IsSorted(cpy)
 		}

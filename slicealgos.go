@@ -2,7 +2,7 @@ package gosort
 
 import "golang.org/x/exp/constraints"
 
-func Clone[T any](v []T) []T {
+func CloneSlice[T any](v []T) []T {
 	cpy := make([]T, len(v))
 	copy(cpy, v)
 	return cpy
