@@ -10,21 +10,23 @@ func fail[T any](t *testing.T, msg string, got T, expected T) {
 	t.Errorf("Test failed. %s. Got: %v, expected: %v", msg, got, expected)
 }
 
-func assertTrue(t *testing.T, isTrue bool) {
+func assertTrue(t *testing.T, v bool) {
 	t.Helper()
 
-	if isTrue {
+	if v {
 		return
 	}
 
-	t.Errorf("Test failed. Value was false.")
+	fail(t, "Value was not true", v, true)
 }
 
 func assertNoError(t *testing.T, err error) {
+	t.Helper()
+
 	if err == nil || reflect.ValueOf(err).IsNil() {
 		return
 	}
-	t.Errorf("Test failed. %v.", err)
+	fail(t, "Expected no error", err, nil)
 }
 
 func assertIsNilSlice[T any](t *testing.T, got []T) {
