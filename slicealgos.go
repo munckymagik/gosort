@@ -60,3 +60,27 @@ func SlicesAreEqual[T comparable](a, b []T) bool {
 
 	return true
 }
+
+type Predicate[T any] func(elem T) bool
+
+func ForAll[T any](a []T, test Predicate[T]) bool {
+	for _, v := range a {
+		if !test(v) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func IsGreaterThan[T constraints.Ordered](pivot T) Predicate[T] {
+	return func(elem T) bool {
+		return elem > pivot
+	}
+}
+
+func IsLessThan[T constraints.Ordered](pivot T) Predicate[T] {
+	return func(elem T) bool {
+		return elem < pivot
+	}
+}

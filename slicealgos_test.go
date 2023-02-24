@@ -84,3 +84,18 @@ func TestIsSorted(t *testing.T) {
 		assertNoError(t, quick.CheckEqual(IsSorted[int], sort.IntsAreSorted, &quick.Config{MaxCount: 1000}))
 	})
 }
+
+func TestForAll(t *testing.T) {
+	assertTrue(t, ForAll([]int{}, func(elem int) bool { return false }))
+
+	a := []int{1, 2}
+	assertTrue(t, ForAll(a, func(elem int) bool { return elem > 0 }))
+	assertTrue(t, !ForAll(a, func(elem int) bool { return elem > 1 }))
+}
+
+func TestPredicates(t *testing.T) {
+	assertTrue(t, IsGreaterThan(0)(1))
+	assertTrue(t, !IsGreaterThan(0)(0))
+	assertTrue(t, !IsLessThan(0)(0))
+	assertTrue(t, IsLessThan(0)(-1))
+}
